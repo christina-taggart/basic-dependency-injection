@@ -1,16 +1,16 @@
 class House
   attr_reader :square_feet, :num_bedrooms, :num_baths, :cost
 
-  def initialize(address, square_feet, num_bedrooms = 3, num_baths = 2, cost = 320_000, down_payment = 0.20, sold = false, has_tenants = false)
-    @address = address
-    @square_feet = square_feet
-    @num_bedrooms = num_bedrooms
-    @num_baths = num_baths
-    @cost = cost
-    @down_payment = down_payment
-    @sold = sold
-    @short_sale = short_sale
-    @has_tenants = has_tenants
+  def initialize(house_info = {})
+    @address = house_info.fetch(:address)             {'1234'}
+    @square_feet = house_info.fetch(:square_feet)     {"Not Given"}
+    @num_bedrooms = house_info.fetch(:num_bedrooms)   {3}
+    @num_baths = house_info.fetch(:num_baths)         {2}
+    @cost = house_info.fetch(:cost)                   {320_000}
+    @down_payment = house_info.fetch(:down_payment)   {0.20}
+    @sold = house_info.fetch(:sold)                   {false}
+    @short_sale = house_info.fetch(:short_sale)       {"Not Given"}
+    @has_tenants = house_info.fetch(:has_tenants)     {false}
   end
 
   def obscure_address
@@ -29,3 +29,6 @@ class House
     "#{obscure_address} : #{square_feet} sq. ft., #{num_bedrooms} bed, #{num_baths} bath. $#{cost}"
   end
 end
+
+house = House.new({square_feet: 1000, cost: 100_000})
+p house.num_bedrooms
