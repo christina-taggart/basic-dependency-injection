@@ -1,16 +1,17 @@
 class House
   attr_reader :square_feet, :num_bedrooms, :num_baths, :cost
 
-  def initialize(address, square_feet, num_bedrooms = 3, num_baths = 2, cost = 320_000, down_payment = 0.20, sold = false, has_tenants = false)
-    @address = address
-    @square_feet = square_feet
-    @num_bedrooms = num_bedrooms
-    @num_baths = num_baths
-    @cost = cost
-    @down_payment = down_payment
-    @sold = sold
-    @short_sale = short_sale
-    @has_tenants = has_tenants
+  def initialize(components = {})
+  # def initialize(address, square_feet, num_bedrooms = 3, num_baths = 2, cost = 320_000, down_payment = 0.20, sold = false, has_tenants = false)
+    @address = components.fetch(:address)
+    @square_feet = components.fetch(:square_feet)
+    @num_bedrooms = components.fetch(:num_bedrooms){ 3 }
+    @num_baths = components.fetch(:num_baths){ 2 }
+    @cost = components.fetch(:cost){ 320_000 }
+    @down_payment = components.fetch(:down_payment){ 0.20 }
+    @sold = components.fetch(:sold){ false }
+    @short_sale = components.fetch(:short_sale){ false }
+    @has_tenants = components.fetch(:has_tenants){ false }
   end
 
   def obscure_address
@@ -29,3 +30,6 @@ class House
     "#{obscure_address} : #{square_feet} sq. ft., #{num_bedrooms} bed, #{num_baths} bath. $#{cost}"
   end
 end
+
+ house = House.new({:address => "1021 Gadsden Ave.", :square_feet => 1_000_000})
+ p house
