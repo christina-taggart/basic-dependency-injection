@@ -1,16 +1,16 @@
 class House
   attr_reader :square_feet, :num_bedrooms, :num_baths, :cost
 
-  def initialize(address, square_feet, num_bedrooms = 3, num_baths = 2, cost = 320_000, down_payment = 0.20, sold = false, has_tenants = false)
-    @address = address
-    @square_feet = square_feet
-    @num_bedrooms = num_bedrooms
-    @num_baths = num_baths
-    @cost = cost
-    @down_payment = down_payment
-    @sold = sold
-    @short_sale = short_sale
-    @has_tenants = has_tenants
+  def initialize(house_attr = {})
+    @address = house_attr[:address]
+    @square_feet = house_attr[:square_feet]
+    @num_bedrooms = house_attr[:num_bedrooms] ||= 3
+    @num_baths = house_attr[:num_baths] ||= 2
+    @cost = house_attr[:cost] ||= 320_000
+    @down_payment = house_attr[:down_payment] ||= 0.20
+    @sold = house_attr[:sold] ||= false
+    @short_sale = house_attr[:short_sale]
+    @has_tenants = house_attr[:has_tenants] ||= false
   end
 
   def obscure_address
@@ -29,3 +29,12 @@ class House
     "#{obscure_address} : #{square_feet} sq. ft., #{num_bedrooms} bed, #{num_baths} bath. $#{cost}"
   end
 end
+
+# Driver Code
+puts mi_casa = House.new({
+  :address => "123 Sesame St.",
+  :square_feet => 2000,
+  :num_baths => 10,
+  :cost => 1_000_000,
+  :sold => true
+})
