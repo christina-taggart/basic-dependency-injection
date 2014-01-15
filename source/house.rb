@@ -1,16 +1,16 @@
 class House
   attr_reader :square_feet, :num_bedrooms, :num_baths, :cost
 
-  def initialize(address, square_feet, num_bedrooms = 3, num_baths = 2, cost = 320_000, down_payment = 0.20, sold = false, has_tenants = false)
-    @address = address
-    @square_feet = square_feet
-    @num_bedrooms = num_bedrooms
-    @num_baths = num_baths
-    @cost = cost
-    @down_payment = down_payment
-    @sold = sold
-    @short_sale = short_sale
-    @has_tenants = has_tenants
+  def initialize(parameter = {})
+    @address = parameter.fetch(:address)
+    @square_feet = parameter.fetch(:square_feet)
+    @num_bedrooms = parameter[:num_bedrooms] || 3
+    @num_baths = parameter[:num_baths] || 2
+    @cost = parameter[:cost] || 320_000
+    @down_payment = parameter[:down_payment]  || 0.20
+    @sold = parameter[:sold] || false
+    @short_sale = parameter.fetch(:short_sale)
+    @has_tenants = parameter[:has_tenants] || false
   end
 
   def obscure_address
@@ -29,3 +29,6 @@ class House
     "#{obscure_address} : #{square_feet} sq. ft., #{num_bedrooms} bed, #{num_baths} bath. $#{cost}"
   end
 end
+
+house = House.new({:address => "this place", :num_baths => 7, :square_feet =>  637436})
+p house.to_s
