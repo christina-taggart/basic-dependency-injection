@@ -1,18 +1,19 @@
 class House
-  attr_reader :square_feet, :num_bedrooms, :num_baths, :cost
+  attr_reader :square_feet, :num_bedrooms, :num_baths, :cost, :has_tenants
 
   def initialize(spec = {})
 
-    @address = spec[:address] || "happy place"
-    @square_feet = spec[:square_feet] || 9000
-    @num_bedrooms = spec[:num_bedrooms] || 3
-    @num_baths = spec[:num_baths] || 2
-    @cost = spec[:cost] || 320_000
-    @down_payment = spec[:down_payment] || 0.20
-    @sold = spec[:sold] || false
+    @address = spec.fetch(:address) {"happy place"}
+    @square_feet = spec.fetch(:square_feet) {9000}
+    @num_bedrooms = spec.fetch(:num_bedrooms) {3}
+    @num_baths = spec.fetch(:num_baths) {2}
+    @cost = spec.fetch(:cost) {320_000}
+    @down_payment = spec.fetch(:down_payment) {0.20}
+    @sold = spec.fetch(:sold) {false}
     @short_sale = "short_sale"
-    @has_tenants = spec[:has_tenants] || false
+    @has_tenants = spec.fetch(:has_tenants) {false}
   end
+
 
   def obscure_address
     @address.sub(/\A\d*/, '****')
@@ -32,5 +33,6 @@ class House
 end
 
 
-p my_house = House.new
-p your_house = House.new(square_feet: 5555,  num_baths: 5, cost: 250000, address: "502 porter")
+p my_house = House.new(address: "4335 favorite ave")
+p your_house = House.new(square_feet: 5555,  num_baths: 5, cost: 250000, has_tenants: true)
+p your_house.cost
