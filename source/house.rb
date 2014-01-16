@@ -1,17 +1,17 @@
 class House
   attr_reader :square_feet, :num_bedrooms, :num_baths, :cost
 
-  def initialize(address, square_feet, num_bedrooms = 3, num_baths = 2, cost = 320_000, down_payment = 0.20, sold = false, has_tenants = false)
-    @address = address
-    @square_feet = square_feet
-    @num_bedrooms = num_bedrooms
-    @num_baths = num_baths
-    @cost = cost
-    @down_payment = down_payment
-    @sold = sold
+def initialize(components = {})
+    @address = components.fetch(:address) {"not given"}
+    @square_feet = components.fetch(:square_feet) {"not given"}
+    @num_bedrooms = components.fetch(:num_bedrooms){3}
+    @num_baths = components.fetch(:num_baths){2}
+    @cost = components.fetch(:cost){320_000}
+    @down_payment = components.fetch(:down_payment){0.20}
+    @sold = components.fetch(:sold){false}
     @short_sale = short_sale
-    @has_tenants = has_tenants
-  end
+    @has_tenants = components.fetch(:has_tenants){false}
+end
 
   def obscure_address
     @address.sub(/\A\d*/, '****')
