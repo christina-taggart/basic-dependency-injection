@@ -1,16 +1,17 @@
 class House
   attr_reader :square_feet, :num_bedrooms, :num_baths, :cost
 
-  def initialize(address, square_feet, num_bedrooms = 3, num_baths = 2, cost = 320_000, down_payment = 0.20, sold = false, has_tenants = false)
-    @address = address
-    @square_feet = square_feet
-    @num_bedrooms = num_bedrooms
-    @num_baths = num_baths
-    @cost = cost
-    @down_payment = down_payment
-    @sold = sold
-    @short_sale = short_sale
-    @has_tenants = has_tenants
+
+  def initialize(house_components = {:num_bedrooms => 3, :num_baths => 2, :cost => 320_000, :down_payment => 0.20, :sold => false, :has_tenants => false})
+    @address = house_components[:address]
+    @square_feet = house_components[:square_feet]
+    @num_bedrooms = house_components[:num_bedrooms]
+    @num_baths = house_components[:num_baths]
+    @cost = house_components[:cost]
+    @down_payment = house_components[:down_payment]
+    @sold = house_components[:sold]
+    @short_sale = house_components[:short_sale]
+    @has_tenants = house_components[:has_tenants]
   end
 
   def obscure_address
