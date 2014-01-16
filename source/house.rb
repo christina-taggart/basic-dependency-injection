@@ -1,15 +1,15 @@
 class House
-  attr_reader :square_feet, :num_bedrooms, :num_baths, :cost
+  attr_reader :square_feet, :num_bedrooms, :num_baths, :cost, :has_tenants, :sold
 
   def initialize(requirements = {})
     @address = requirements[:address]
     @square_feet = requirements[:square_feet]
-    @num_bedrooms = requirements[:num_bedrooms] || 3
-    @num_baths = requirements[:num_baths] || 2
-    @cost = requirements[:cost] || 320_000
-    @down_payment =requirements[:down_payment] || 0.20
-    @sold = requirements[:sold] || false
-    @has_tenants = requirements[:has_tenants] || false
+    @num_bedrooms = requirements.fetch(:num_bedrooms) {3}
+    @num_baths = requirements.fetch(:num_baths) {2}
+    @cost = requirements.fetch(:cost) {320_000}
+    @down_payment =requirements.fetch(:down_payment) {0.20}
+    @sold = requirements.fetch(:sold) {true}
+    @has_tenants = requirements.fetch(:has_tenants) {true}
     @short_sale = false
   end
 
@@ -32,4 +32,6 @@ end
 
 blue_house = House.new(address: "62 Why Worry Lane, Woodside, CA 94062", square_feet: 3200, num_bedrooms: 3, num_baths: 2,
                       has_tenants: false, sold: false, cost: 500_000, down_payment: 0.20)
-p blue_house
+p blue_house.has_tenants
+
+p blue_house.sold
