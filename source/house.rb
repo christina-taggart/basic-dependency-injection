@@ -1,16 +1,19 @@
 class House
   attr_reader :square_feet, :num_bedrooms, :num_baths, :cost
 
-  def initialize(address, square_feet, num_bedrooms = 3, num_baths = 2, cost = 320_000, down_payment = 0.20, sold = false, has_tenants = false)
-    @address = address
-    @square_feet = square_feet
-    @num_bedrooms = num_bedrooms
-    @num_baths = num_baths
-    @cost = cost
-    @down_payment = down_payment
-    @sold = sold
-    @short_sale = short_sale
-    @has_tenants = has_tenants
+  def initialize(specs = {})
+    # address, square_feet, num_bedrooms = 3, num_baths = 2, 
+    # cost = 320_000, down_payment = 0.20, sold = false, has_tenants = false
+
+    @address = specs[:address]
+    @square_feet = specs[:square_feet]
+    @num_bedrooms = specs.fetch(:num_bedrooms, 3)
+    @num_baths = specs.fetch(:num_baths, 2)
+    @cost = specs.fetch(:cost, 320_000)
+    @down_payment = specs.fetch(:down_payment, 0.20)
+    @sold = specs.fetch(:sold, false)
+    @short_sale = specs[:short_sale]
+    @has_tenants = specs.fetch(:has_tenants, false)
   end
 
   def obscure_address
@@ -29,3 +32,8 @@ class House
     "#{obscure_address} : #{square_feet} sq. ft., #{num_bedrooms} bed, #{num_baths} bath. $#{cost}"
   end
 end
+
+test_house = House.new(address:"123 main st", square_feet:"3000 sq", num_bedrooms: 3,
+                        short_sale: false)
+
+p "#{test_house}"
